@@ -1,12 +1,14 @@
 package bstorm.akimts.restapi.models.entity;
 
 import bstorm.akimts.restapi.models.entity.BaseEntity;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "Security_Role")
+@ToString
 public class Role extends BaseEntity<Long> {
     @Column(nullable = false, unique = true)
     private String nom;

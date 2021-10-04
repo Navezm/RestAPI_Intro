@@ -1,11 +1,16 @@
 package bstorm.akimts.restapi.models.entity;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "User_possede_Role")
+@EqualsAndHashCode
+@ToString
 public class UserRole {
     @EmbeddedId
     private UserRoleId id;

@@ -1,6 +1,8 @@
 package bstorm.akimts.restapi.models.entity;
 
 import bstorm.akimts.restapi.models.PayType;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -12,6 +14,8 @@ import java.util.Set;
 
 
 @Entity
+@EqualsAndHashCode
+@ToString
 public class Command extends BaseEntity<Long> {
     private LocalDate shippingDate;
     private PayType payType;

@@ -1,10 +1,19 @@
 package bstorm.akimts.restapi.models.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
+@EqualsAndHashCode
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Address {
     @Column(name = "ad_street",nullable = false)
     private String street;
@@ -45,4 +54,6 @@ public class Address {
     public void setCountry(String country) {
         this.country = country;
     }
+
+
 }

@@ -1,6 +1,10 @@
 package bstorm.akimts.restapi.util;
 
+import bstorm.akimts.restapi.models.PayType;
+import bstorm.akimts.restapi.models.entity.Address;
+import bstorm.akimts.restapi.models.entity.User;
 import bstorm.akimts.restapi.models.entity.Voiture;
+import bstorm.akimts.restapi.repository.UserRepository;
 import bstorm.akimts.restapi.repository.VoitureRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +18,11 @@ public class DatabaseFiller implements InitializingBean {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseFiller.class);
     private final VoitureRepository repository;
+    private final UserRepository userRepository;
 
-    public DatabaseFiller(VoitureRepository repository) {
+    public DatabaseFiller(VoitureRepository repository, UserRepository userRepository) {
         this.repository = repository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -37,7 +43,15 @@ public class DatabaseFiller implements InitializingBean {
                 new Voiture(0, "VrimVroom", "BipBoop 4", 120)
         );
 
+        List<User> userToInsert = List.of(
+                new User("martin", "123456", "n@n", new Address("rue machin", "105", "Bx", "BE"), PayType.BANCONTACT),
+                new User("Laetitia", "123456", "l@l", new Address("rue truc", "125", "Bx", "BE"), PayType.CASH),
+                new User("Arnaud", "123456", "a@a", new Address("rue bidule", "2", "Bx", "BE"), PayType.PAYPAL)
+        );
+
         repository.saveAll(toInsert);
+
+        userRepository.saveAll(userToInsert);
 
     }
 }

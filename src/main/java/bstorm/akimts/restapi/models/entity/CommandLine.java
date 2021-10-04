@@ -1,9 +1,12 @@
 package bstorm.akimts.restapi.models.entity;
 
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@ToString
 public class CommandLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
