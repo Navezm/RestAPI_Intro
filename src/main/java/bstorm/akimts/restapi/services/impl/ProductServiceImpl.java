@@ -1,6 +1,7 @@
 package bstorm.akimts.restapi.services.impl;
 
 import bstorm.akimts.restapi.mapper.ProductMapper;
+import bstorm.akimts.restapi.mapper.ProductTypeMapper;
 import bstorm.akimts.restapi.models.dto.ProductDTO;
 import bstorm.akimts.restapi.models.entity.Product;
 import bstorm.akimts.restapi.models.form.ProductForm;
@@ -15,10 +16,12 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
     private final ProductMapper mapper;
+    private final ProductTypeMapper productTypeMapper;
 
-    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper) {
+    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper, ProductTypeMapper productTypeMapper) {
         this.repository = productRepository;
         this.mapper = productMapper;
+        this.productTypeMapper = productTypeMapper;
     }
 
     @Override
@@ -52,11 +55,18 @@ public class ProductServiceImpl implements ProductService {
         Product toUpdate = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Le produit n'existe pas"));
 
-        return null;
+        toUpdate.setName(productForm.getName());
+        toUpdate.setType(productTypeMapper.fromFormToEntity(productForm.getType()));
+
+        repository.save(toUpdate);
+
+        return mapper.toDto(toUpdate);
     }
 
     @Override
     public ProductDTO insert(ProductForm productForm) {
-        return null;
+        repository.save(mapper.fromFormToEntity(productForm));
+
+        return mapper.toDto(mapper.fromFormToEntity(productForm));
     }
 }

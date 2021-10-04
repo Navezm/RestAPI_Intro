@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class Product extends BaseEntity<Long>{
 
     private String name;
-    @ManyToOne(targetEntity = ProductType.class)
+    @ManyToOne(targetEntity = ProductType.class, cascade = CascadeType.ALL)
     private ProductType type;
 
     public ProductType getType() {
