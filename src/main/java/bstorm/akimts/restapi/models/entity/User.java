@@ -7,15 +7,15 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Security_User")
 @EqualsAndHashCode
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
 public class User extends BaseEntity<Long> {
-
     @Column(nullable = false, unique = true)
     @Getter @Setter
     private String username;
@@ -33,6 +33,18 @@ public class User extends BaseEntity<Long> {
     @Enumerated(EnumType.STRING)
     @Getter @Setter
     private PayType defaultPayType;
+
+    @ManyToMany(targetEntity = Groupe.class)
+    @JoinTable(name = "Security_UserGroup")
+    private Set<Groupe> groupes = new HashSet<>();
+
+    public User(String username, String password, String email, Address address, PayType defaultPayType) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.address = address;
+        this.defaultPayType = defaultPayType;
+    }
 
     @PrePersist()
     public void prePersist() {
