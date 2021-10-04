@@ -1,9 +1,16 @@
 package bstorm.akimts.restapi.models.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product extends BaseEntity<Long>{
+
     private String name;
     @ManyToOne(targetEntity = ProductType.class)
     private ProductType type;
@@ -54,15 +61,13 @@ public class Product extends BaseEntity<Long>{
         return sb.toString();
     }
 
-//    @Override
-//    @PrePersist
-//    public void prePersist() {
-//        this.createdAt = LocalDate.now();
-//    }
-//
-//    @Override
-//    @PreUpdate
-//    public void preUpdate() {
-//        this.updatedAt = LocalDate.now();
-//    }
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDate.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDate.now();
+    }
 }
