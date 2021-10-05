@@ -1,8 +1,6 @@
 package bstorm.akimts.restapi.models.entity;
 
 import bstorm.akimts.restapi.models.PayType;
-import bstorm.akimts.restapi.models.entity.Address;
-import bstorm.akimts.restapi.models.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,9 +32,9 @@ public class User extends BaseEntity<Long> {
     @Getter @Setter
     private PayType defaultPayType;
 
-    @ManyToMany(targetEntity = Groupe.class)
+    @ManyToMany(targetEntity = Group.class)
     @JoinTable(name = "Security_UserGroup")
-    private Set<Groupe> groupes = new HashSet<>();
+    private Set<Group> groupes = new HashSet<>();
 
     public User(String username, String password, String email, Address address, PayType defaultPayType) {
         this.username = username;
