@@ -2,10 +2,7 @@ package bstorm.akimts.restapi.util;
 
 import bstorm.akimts.restapi.models.PayType;
 import bstorm.akimts.restapi.models.entity.*;
-import bstorm.akimts.restapi.repository.AddressRepository;
-import bstorm.akimts.restapi.repository.ProductRepository;
-import bstorm.akimts.restapi.repository.ProductTypeRepository;
-import bstorm.akimts.restapi.repository.UserRepository;
+import bstorm.akimts.restapi.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -21,12 +18,14 @@ public class DatabaseFiller implements InitializingBean {
     private final ProductRepository productRepository;
     private final ProductTypeRepository productTypeRepository;
     private final AddressRepository addressRepository;
+    private final RoleRepository roleRepository;
 
-    public DatabaseFiller(UserRepository userRepository, ProductRepository productRepository, ProductTypeRepository productTypeRepository, AddressRepository addressRepository) {
+    public DatabaseFiller(UserRepository userRepository, ProductRepository productRepository, ProductTypeRepository productTypeRepository, AddressRepository addressRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.productRepository = productRepository;
         this.productTypeRepository = productTypeRepository;
         this.addressRepository = addressRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -61,6 +60,13 @@ public class DatabaseFiller implements InitializingBean {
                 new Product("Céréales", productTypeToInsert.get(3)),
                 new Product("Commode", productTypeToInsert.get(2))
         );
+
+        List<Role> roleToInsert = List.of(
+                new Role("User"),
+                new Role("Admin")
+        );
+
+        roleRepository.saveAll(roleToInsert);
 
         productTypeRepository.saveAll(productTypeToInsert);
 

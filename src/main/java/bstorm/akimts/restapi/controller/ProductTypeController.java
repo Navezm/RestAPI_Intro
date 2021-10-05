@@ -27,7 +27,7 @@ public class ProductTypeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductTypeDTO> getOne(Long id){
+    public ResponseEntity<ProductTypeDTO> getOne(@PathVariable Long id){
 
         ProductTypeDTO productTypeDTO = service.getOne(id);
 
