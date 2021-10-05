@@ -20,7 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/all")
+    @GetMapping({"", "/all"})
     public ResponseEntity<List<UserDTO>> getAll(){
         List<UserDTO> userDTOList = userService.findAll();
 

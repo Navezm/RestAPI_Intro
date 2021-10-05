@@ -65,8 +65,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO insert(ProductForm productForm) {
-        repository.save(mapper.fromFormToEntity(productForm));
+        Product toInsert = repository.save(mapper.fromFormToEntity(productForm));
 
-        return mapper.toDto(mapper.fromFormToEntity(productForm));
+        return mapper.toDto(toInsert);
     }
 }

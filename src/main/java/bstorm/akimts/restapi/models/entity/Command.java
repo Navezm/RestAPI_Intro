@@ -19,7 +19,8 @@ import java.util.Set;
 public class Command extends BaseEntity<Long> {
     private LocalDate shippingDate;
     private PayType payType;
-    @Embedded
+
+    @ManyToOne(targetEntity = Address.class)
     private Address shippingAddress;
 
     @OneToMany(targetEntity = CommandLine.class)

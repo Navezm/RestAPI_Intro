@@ -70,8 +70,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO insert(UserForm form) {
-        repository.save(mapper.fromFormToEntity(form));
+        User toInsert = repository.save(mapper.fromFormToEntity(form));
 
-        return mapper.toDto(mapper.fromFormToEntity(form));
+        return mapper.toDto(toInsert);
     }
 }

@@ -1,59 +1,48 @@
 package bstorm.akimts.restapi.models.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
+import java.time.LocalDate;
 
-@Embeddable
 @EqualsAndHashCode
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Address {
-    @Column(name = "ad_street",nullable = false)
+@Entity
+@Table(name = "Security_Address")
+public class Address extends BaseEntity<Long> {
+
+    @Column(nullable = false)
+    @Getter @Setter
     private String street;
+
     @Column(nullable = false)
+    @Getter @Setter
     private String streetNumber;
+
     @Column(nullable = false)
+    @Getter @Setter
     private String city;
-    private String country = "BE";
 
-    public String getStreet() {
-        return street;
-    }
+    @Column(columnDefinition = "varchar(250) default 'BE'")
+    @Getter @Setter
+    private String country;
 
-    public void setStreet(String street) {
+    public Address(String street, String streetNumber, String city) {
         this.street = street;
-    }
-
-    public String getStreetNumber() {
-        return streetNumber;
-    }
-
-    public void setStreetNumber(String streetNumber) {
         this.streetNumber = streetNumber;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
         this.city = city;
     }
 
-    public String getCountry() {
-        return country;
+    @PrePersist()
+    public void prePersist() {
+        this.createdAt = LocalDate.now();
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    @PreUpdate()
+    public void preUpdate() {
+        this.updatedAt = LocalDate.now();
     }
-
-
 }

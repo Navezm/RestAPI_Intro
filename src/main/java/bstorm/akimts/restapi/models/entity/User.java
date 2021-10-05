@@ -26,7 +26,7 @@ public class User extends BaseEntity<Long> {
     @Getter @Setter
     private String email;
 
-    @Embedded
+    @ManyToOne(targetEntity = Address.class)
     @Getter @Setter
     private Address address;
 
