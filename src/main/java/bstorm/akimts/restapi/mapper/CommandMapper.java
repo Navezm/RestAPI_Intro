@@ -39,11 +39,32 @@ public class CommandMapper implements BaseMapper<CommandDTO, CommandForm, Comman
     public CommandDTO toDto(Command entity) {
         if (entity == null)
             return null;
+
+        CommandDTO commandDTO = new CommandDTO();
+
+        commandDTO.setCommandLines(entity.getCommandLines()
+                .stream()
+                .map(commandLineMapper::toDto)
+                .collect(Collectors.toSet()));
+        commandDTO.setPayType(entity.getPayType());
+        commandDTO.setShippingAddress(addressMapper.toDto(entity.getShippingAddress()));
+        commandDTO.setUser(userMapper.toDto(entity.getUser()));
+        commandDTO.setShippingDate(entity.getShippingDate());
+
+        return commandDTO;
     }
 
     @Override
     public Command fromFormToEntity(CommandForm form) {
         if (form == null)
             return null;
+
+        return new Command(
+                form.getShippingDate(),
+                form.getPayType(),
+                form.getShippingAddress(),
+                form.getCommandLines(),
+                form.getUser()
+        );
     }
 }

@@ -55,11 +55,7 @@ public class GroupServiceImpl implements GroupService {
                 .orElseThrow(() -> new IllegalArgumentException("Le groupe n'existe pas"));
 
         toUpdate.setName(groupForm.getName());
-        toUpdate.setRoles(groupForm.getRoles()
-                .stream()
-                .map(roleMapper::fromFormToEntity)
-                .collect(Collectors.toSet())
-        );
+        toUpdate.setRoles(groupForm.getRoles());
 
         return mapper.toDto(toUpdate);
     }

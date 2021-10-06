@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         toUpdate.setUsername(userForm.getUsername());
         toUpdate.setPassword(userForm.getPassword());
         toUpdate.setEmail(userForm.getEmail());
-        toUpdate.setAddress(addressMapper.fromFormToEntity(userForm.getAddressForm()));
+        toUpdate.setAddress(userForm.getAddressForm());
         toUpdate.setDefaultPayType(userForm.getPayType());
 
         repository.save(toUpdate);

@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new IllegalArgumentException("Le produit n'existe pas"));
 
         toUpdate.setName(productForm.getName());
-        toUpdate.setType(productTypeMapper.fromFormToEntity(productForm.getType()));
+        toUpdate.setType(productForm.getType());
 
         repository.save(toUpdate);
 

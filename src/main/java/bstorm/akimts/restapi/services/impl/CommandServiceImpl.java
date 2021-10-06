@@ -2,6 +2,7 @@ package bstorm.akimts.restapi.services.impl;
 
 import bstorm.akimts.restapi.mapper.CommandMapper;
 import bstorm.akimts.restapi.models.dto.CommandDTO;
+import bstorm.akimts.restapi.models.entity.Command;
 import bstorm.akimts.restapi.models.form.CommandForm;
 import bstorm.akimts.restapi.repository.CommandRepository;
 import bstorm.akimts.restapi.services.CommandService;
@@ -30,21 +31,37 @@ public class CommandServiceImpl implements CommandService {
 
     @Override
     public CommandDTO getOne(Long id) {
-        return null;
+        return repository.findById(id)
+                .map(mapper::toDto)
+                .orElseThrow(() -> new IllegalArgumentException("La commande n'existe pas"));
     }
 
     @Override
     public CommandDTO delete(Long id) {
-        return null;
+        Command toDelete = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("La commande n'existe pas"));
+
+        repository.delete(toDelete);
+
+        return mapper.toDto(toDelete);
     }
 
     @Override
     public CommandDTO update(Long id, CommandForm commandForm) {
-        return null;
+        Command toUpdate = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("La commande n'existe pas"));
+
+        toUpdate.setCommandLines(commandForm.getCommandLines());
+        toUpdate.setPayType(commandForm.getPayType());
+        toUpdate.setShippingAddress(commandForm.getShippingAddress());
+        toUpdate.setUser(commandForm.getUser());
+        toUpdate.setShippingDate(commandForm.getShippingDate());
+
+        return mapper.toDto(repository.save(toUpdate));
     }
 
     @Override
     public CommandDTO insert(CommandForm commandForm) {
-        return null;
+        return mapper.toDto(repository.save(mapper.fromFormToEntity(commandForm)));
     }
 }
