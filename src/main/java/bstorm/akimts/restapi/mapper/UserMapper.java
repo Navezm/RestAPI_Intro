@@ -48,7 +48,7 @@ public class UserMapper implements BaseMapper<UserDTO, UserForm, User>{
                 form.getUsername(),
                 form.getPassword(),
                 form.getEmail(),
-                addressMapper.fromFormToEntity(form.getAddressForm()),
+                form.getAddressForm(),
                 form.getPayType()
         );
     }

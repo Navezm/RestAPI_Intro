@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class DatabaseFiller implements InitializingBean {
@@ -19,13 +21,15 @@ public class DatabaseFiller implements InitializingBean {
     private final ProductTypeRepository productTypeRepository;
     private final AddressRepository addressRepository;
     private final RoleRepository roleRepository;
+    private final GroupRepository groupRepository;
 
-    public DatabaseFiller(UserRepository userRepository, ProductRepository productRepository, ProductTypeRepository productTypeRepository, AddressRepository addressRepository, RoleRepository roleRepository) {
+    public DatabaseFiller(UserRepository userRepository, ProductRepository productRepository, ProductTypeRepository productTypeRepository, AddressRepository addressRepository, RoleRepository roleRepository, GroupRepository groupRepository) {
         this.userRepository = userRepository;
         this.productRepository = productRepository;
         this.productTypeRepository = productTypeRepository;
         this.addressRepository = addressRepository;
         this.roleRepository = roleRepository;
+        this.groupRepository = groupRepository;
     }
 
     @Override
@@ -66,7 +70,11 @@ public class DatabaseFiller implements InitializingBean {
                 new Role("Admin")
         );
 
+        Group groupToInsert = new Group("Base Group", new HashSet<>(roleToInsert));
+
         roleRepository.saveAll(roleToInsert);
+
+        groupRepository.save(groupToInsert);
 
         productTypeRepository.saveAll(productTypeToInsert);
 

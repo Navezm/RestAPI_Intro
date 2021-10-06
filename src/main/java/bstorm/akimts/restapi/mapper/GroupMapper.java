@@ -55,9 +55,6 @@ public class GroupMapper implements BaseMapper<GroupDTO, GroupForm, Group>{
         return new Group(
                 form.getName(),
                 form.getRoles()
-                        .stream()
-                        .map(roleMapper::fromFormToEntity)
-                        .collect(Collectors.toSet())
         );
     }
 }

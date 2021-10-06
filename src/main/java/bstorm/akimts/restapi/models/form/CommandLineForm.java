@@ -1,6 +1,6 @@
 package bstorm.akimts.restapi.models.form;
 
-import bstorm.akimts.restapi.models.entity.ProductType;
+import bstorm.akimts.restapi.models.entity.Product;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,9 +10,11 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class ProductForm {
+public class CommandLineForm {
 
-    private String name;
-    private ProductType type;
+    private Long commandId;
+    private Long productId;
+    private Product product;
+    private float qtt;
 
 }

@@ -1,6 +1,7 @@
 package bstorm.akimts.restapi.models.form;
 
 import bstorm.akimts.restapi.models.PayType;
+import bstorm.akimts.restapi.models.entity.Address;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +22,7 @@ public class UserForm {
     private String password;
     @NotBlank
     private String email;
-    private AddressForm addressForm;
+    private Address addressForm;
     private PayType payType;
 
 }

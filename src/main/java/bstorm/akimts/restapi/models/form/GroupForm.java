@@ -1,6 +1,7 @@
 package bstorm.akimts.restapi.models.form;
 
 import bstorm.akimts.restapi.models.dto.RoleDTO;
+import bstorm.akimts.restapi.models.entity.Role;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,6 @@ import java.util.Set;
 public class GroupForm {
 
     private String name;
-    private Set<RoleForm> roles;
+    private Set<Role> roles;
 
 }

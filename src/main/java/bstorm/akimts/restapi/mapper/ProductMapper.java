@@ -44,7 +44,7 @@ public class ProductMapper implements BaseMapper<ProductDTO, ProductForm, Produc
 
         return new Product(
                 form.getName(),
-                productTypeMapper.fromFormToEntity(form.getType())
+                form.getType()
         );
     }
 }
