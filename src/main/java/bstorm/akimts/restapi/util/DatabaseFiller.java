@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class DatabaseFiller implements InitializingBean {
@@ -22,14 +22,18 @@ public class DatabaseFiller implements InitializingBean {
     private final AddressRepository addressRepository;
     private final RoleRepository roleRepository;
     private final GroupRepository groupRepository;
+    private final CommandLineRepository commandLineRepository;
+    private final CommandRepository commandRepository;
 
-    public DatabaseFiller(UserRepository userRepository, ProductRepository productRepository, ProductTypeRepository productTypeRepository, AddressRepository addressRepository, RoleRepository roleRepository, GroupRepository groupRepository) {
+    public DatabaseFiller(UserRepository userRepository, ProductRepository productRepository, ProductTypeRepository productTypeRepository, AddressRepository addressRepository, RoleRepository roleRepository, GroupRepository groupRepository, CommandLineRepository commandLineRepository, CommandRepository commandRepository) {
         this.userRepository = userRepository;
         this.productRepository = productRepository;
         this.productTypeRepository = productTypeRepository;
         this.addressRepository = addressRepository;
         this.roleRepository = roleRepository;
         this.groupRepository = groupRepository;
+        this.commandLineRepository = commandLineRepository;
+        this.commandRepository = commandRepository;
     }
 
     @Override
@@ -72,6 +76,20 @@ public class DatabaseFiller implements InitializingBean {
 
         Group groupToInsert = new Group("Base Group", new HashSet<>(roleToInsert));
 
+        List<CommandLine> commandLinesToInsert = List.of(
+                new CommandLine(1L, 2L, productToInsert.get(1), 2.0F),
+                new CommandLine(2L, 1L, productToInsert.get(0), 10.0F),
+                new CommandLine(3L, 3L, productToInsert.get(2), 5.0F)
+        );
+
+        Command commandToInsert = new Command(
+                LocalDate.now(),
+                PayType.VISA,
+                addressToInsert.get(0),
+                new HashSet<>(commandLinesToInsert),
+                userToInsert.get(0)
+        );
+
         roleRepository.saveAll(roleToInsert);
 
         groupRepository.save(groupToInsert);
@@ -83,5 +101,9 @@ public class DatabaseFiller implements InitializingBean {
         userRepository.saveAll(userToInsert);
 
         productRepository.saveAll(productToInsert);
+
+        commandLineRepository.saveAll(commandLinesToInsert);
+
+        commandRepository.save(commandToInsert);
     }
 }

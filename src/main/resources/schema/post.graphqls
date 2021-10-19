@@ -1,0 +1,21 @@
+type User {
+    id: ID!,
+    username: String!,
+    password: String!,
+    email: String!,
+    address: Address!,
+    paytype: PayType!
+}
+
+enum PayType {
+    BANCONTACT,
+    VISA,
+    MASTERCARD,
+    PAYPAL,
+    MAESTRO,
+    CASH
+}
+
+extend type Query {
+    users: [User]!
+}

@@ -11,10 +11,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-// @EnableWebSecurity
- @EnableGlobalMethodSecurity(
-         prePostEnabled = true
- )
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(
+     prePostEnabled = true
+)
 public class  SecurityConfig extends WebSecurityConfigurerAdapter {
 
      @Bean
@@ -36,8 +36,9 @@ public class  SecurityConfig extends WebSecurityConfigurerAdapter {
 
      @Override
      protected void configure(HttpSecurity http) throws Exception {
-         http.csrf().disable()
+         http.cors().and().csrf().disable()
                  .httpBasic();
+
 
          http.authorizeRequests()
                  .anyRequest().permitAll();
